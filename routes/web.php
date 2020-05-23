@@ -11,11 +11,15 @@
 |
 */
 
-Route::any('product/search', 'ProductController@search')->name('products.search');
+Route::any('product/search', 'ProductController@search')->name('products.search')->middleware('auth');
 
-Route::resource('products', 'ProductController');
+Route::resource('products', 'ProductController')->middleware('auth');
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+
+Auth::routes(['register' => false]);
+
+Route::get('/home', 'HomeController@index')->name('home');
